@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 /**
  * auth2的授权服务器
@@ -15,6 +16,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableAuthorizationServer
 public class Auth2AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
+
+
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
     clients
@@ -24,6 +27,6 @@ public class Auth2AuthorizationServer extends AuthorizationServerConfigurerAdapt
         .redirectUris("http://localhost:9002/callback")
         // 授权码模式
         .authorizedGrantTypes("authorization_code")
-        .scopes("read_userinfo", "read_contacts");
+        .scopes("read", "write");
   }
 }
