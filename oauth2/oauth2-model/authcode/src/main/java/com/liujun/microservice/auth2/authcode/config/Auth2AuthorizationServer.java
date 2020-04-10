@@ -16,7 +16,16 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class Auth2AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
+  @Override
+  public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    // 此用来支持刷新token
+    security
+        .tokenKeyAccess("permitAll()")
+        .checkTokenAccess("permitAll()")
+        .allowFormAuthenticationForClients();
 
+    security.allowFormAuthenticationForClients();
+  }
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -26,7 +35,7 @@ public class Auth2AuthorizationServer extends AuthorizationServerConfigurerAdapt
         .secret("123456")
         .redirectUris("http://localhost:9002/callback")
         // 授权码模式
-        .authorizedGrantTypes("authorization_code")
+        .authorizedGrantTypes("authorization_code","refresh_token")
         .scopes("read", "write");
   }
 }
