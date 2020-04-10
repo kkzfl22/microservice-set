@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+
+security:
+  user:
+    name: liujun
+    password: feifei123
