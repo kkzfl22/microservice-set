@@ -1,0 +1,16 @@
+.project
+.classpath
+.idea
+/.externalToolBuilders/
+/.settings/
+/target/
+/build/
+/bin/
+*.iml
+dlaas-main.iml
+.git
+/.idea
+target/
+/.metadata/
+/src/main/resources/autosql/~$tabase-15.doc
+/src/main/resources/autosql/~WRL0004.tmp
