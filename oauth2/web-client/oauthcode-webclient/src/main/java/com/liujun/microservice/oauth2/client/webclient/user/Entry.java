@@ -1,0 +1,16 @@
+package com.liujun.microservice.oauth2.client.webclient.user;
+
+public class Entry {
+
+    private String value;
+
+    public Entry(String value) {
+        super();
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+}
