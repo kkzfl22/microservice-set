@@ -1,0 +1,5 @@
+apollo:
+  bootstrap:
+    enabled: true
+    # will inject 'application' and 'TEST1.publicnamespace' namespaces in bootstrap phase
+    namespaces: application,TEST1.publicnamespace,application.yaml
