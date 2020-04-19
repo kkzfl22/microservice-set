@@ -1,0 +1,9 @@
+server:
+  port: 8082
+
+spring:
+  social:
+    weibo:
+      app-id: 1405268701
+      app-secret: 4f7424946d60f55595aa4af5f0d3eeaf
+

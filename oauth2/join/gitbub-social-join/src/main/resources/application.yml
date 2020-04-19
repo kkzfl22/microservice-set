@@ -1,0 +1,9 @@
+server:
+  port: 9012
+
+spring:
+  social:
+    github:
+      app-id: Iv1.00cb491d88afb464
+      app-secret: de9fbf8d75a78138591209b0d4f35fcd58bc09ce
+
