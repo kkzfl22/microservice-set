@@ -1,0 +1,13 @@
+apply plugin: 'war'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //添加对本项目中repository的依赖
+    compile project(":repository")
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'ch.qos.logback:logback-classic:1.2.1'
+}

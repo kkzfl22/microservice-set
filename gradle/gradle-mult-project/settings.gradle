@@ -1,0 +1,5 @@
+rootProject.name = 'gradle-mult-project'
+include 'module'
+include 'repository'
+include 'web'
+

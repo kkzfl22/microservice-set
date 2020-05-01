@@ -1,0 +1,9 @@
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //对自己项目中的依赖的特殊写法
+    compile project(':module')
+}

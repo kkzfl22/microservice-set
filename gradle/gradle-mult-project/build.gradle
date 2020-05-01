@@ -1,0 +1,36 @@
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    
+    apply plugin:'maven-publish'
+
+    publishing{
+        publications{
+            myPublish(MavenPublication){
+                //将所有java产生的文件发布发出
+                from components.java
+            }
+        }
+        repositories {
+            maven{
+                //发布本地仓库时，需要在系统用户下配制.m2/settings.xml文件
+                name 'myRepo'
+                url ''
+            }
+        }
+    }
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+
+    //发布操作
+}
+
+
