@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group 'com.liujun.gradle.demo'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+//    //私服
+//    maven {
+//        //本地私服的地址
+//        url ''
+//    }
+//    //优先使用本地仓库
+//    mavenLocal()
+    //再请求中央仓库
+    mavenCentral()
+}
+//1,在解决冲突的过程中，gradle会默认使用最最高版本的包
+
+//1.冲突解决，关闭默认策略，在发生版本冲突时，报错
+configurations.all {
+    resolutionStrategy {
+        failOnVersionConflict()
+        //强制指定冲突的版本
+        force 'org.slf4j:slf4j-api:1.7.24'
+    }
+}
+
+
+dependencies {
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'ch.qos.logback:logback-classic:1.2.1'
+//    //排序单个文件，以解决依赖冲突
+//    compile( 'org.hibernate:hibernate-core:3.6.3.Final'){
+//        exclude  group: "org.slf4j",module:"slf4j-api"
+//    }
+
+    //测试编译阶段所依赖的资源
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    //测试运行阶段所需的依赖
+    //testRuntime group: 'junit', name: 'junit', version: '4.13'
+}
