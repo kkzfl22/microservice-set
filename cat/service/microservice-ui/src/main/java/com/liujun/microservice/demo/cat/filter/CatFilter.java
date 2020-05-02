@@ -52,7 +52,7 @@ public class CatFilter implements Filter {
         Cat.Context.CHILD, request.getHeader(CatHttpConstants.CAT_HTTP_HEADER_CHILD_MESSAGE_ID));
     context.addProperty(
         Cat.Context.PARENT, request.getHeader(CatHttpConstants.CAT_HTTP_HEADER_PARENT_MESSAGE_ID));
-
+    Cat.logRemoteCallServer(context);
     Transaction tran = Cat.newTransaction(CatConstants.TYPE_URL, url);
 
     try {
