@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--用户信息数据库操作-->
+<mapper namespace="com.liujun.microservice.data.dao.DataUserInfoDAO">
+    <resultMap type="com.liujun.microservice.data.entity.DataUserInfoPO"
+               id="papUserinfoResultMap">
+        <!--用户的id-->
+        <id property="oid" column="oid"/>
+        <!--用户手机-->
+        <result property="userMobile" column="user_mobile"/>
+        <!--用户邮件地址-->
+        <result property="userEmail" column="user_email"/>
+        <!--账号状态:, 0:停用, 1:正常, 2:密码错误而锁定, 3:管理员强制锁定-->
+        <result property="status" column="status"/>
+        <!--用户创建时间-->
+        <result property="createTime" column="create_time"/>
+        <!--用户的id-->
+        <result property="oid" column="oid"/>
+        <!--用户名-->
+        <result property="userName" column="user_name"/>
+        <!--用户密码-->
+        <result property="userPassword" column="user_password"/>
+        <!--用户描述-->
+        <result property="remark" column="remark"/>
+    </resultMap>
+    <!--用户信息表(pap_userinfo)添加操作-->
+    <insert id="insert" parameterType="com.liujun.microservice.data.entity.DataUserInfoPO">
+        insert into pap_userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--用户手机-->
+            <if test=" userMobile !=  null and ''!=  userMobile">
+                user_mobile,
+            </if>
+            <!--用户邮件地址-->
+            <if test=" userEmail !=  null and ''!=  userEmail">
+                user_email,
+            </if>
+            <!--账号状态:, 0:停用, 1:正常, 2:密码错误而锁定, 3:管理员强制锁定-->
+            <if test=" status !=  null">
+                status,
+            </if>
+            <!--用户创建时间-->
+            <if test=" createTime !=  null">
+                create_time,
+            </if>
+            <!--用户的id-->
+            <if test=" oid !=  null and ''!=  oid">
+                oid,
+            </if>
+            <!--用户名-->
+            <if test=" userName !=  null and ''!=  userName">
+                user_name,
+            </if>
+            <!--用户密码-->
+            <if test=" userPassword !=  null and ''!=  userPassword">
+                user_password,
+            </if>
+            <!--用户描述-->
+            <if test=" remark !=  null and ''!=  remark">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <!--用户手机-->
+            <if test=" userMobile !=  null and ''!=  userMobile ">
+                #{userMobile,jdbcType=VARCHAR},
+            </if>
+            <!--用户邮件地址-->
+            <if test=" userEmail !=  null and ''!=  userEmail ">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <!--账号状态:, 0:停用, 1:正常, 2:密码错误而锁定, 3:管理员强制锁定-->
+            <if test=" status !=  null ">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <!--用户创建时间-->
+            <if test=" createTime !=  null ">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <!--用户的id-->
+            <if test=" oid !=  null and ''!=  oid ">
+                #{oid,jdbcType=VARCHAR},
+            </if>
+            <!--用户名-->
+            <if test=" userName !=  null and ''!=  userName ">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <!--用户密码-->
+            <if test=" userPassword !=  null and ''!=  userPassword ">
+                #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <!--用户描述-->
+            <if test=" remark !=  null and ''!=  remark ">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+
+    <!--用户信息表(pap_userinfo)修改操作-->
+    <update id="update" parameterType="com.liujun.microservice.data.entity.DataUserInfoPO">
+        update pap_userinfo
+        <set>
+            <trim suffixOverrides=",">
+                <!--用户手机-->
+                <if test=" userMobile !=  null and ''!=  userMobile">
+                    user_mobile = #{userMobile,jdbcType=VARCHAR},
+                </if>
+                <!--用户邮件地址-->
+                <if test=" userEmail !=  null and ''!=  userEmail">
+                    user_email = #{userEmail,jdbcType=VARCHAR},
+                </if>
+                <!--账号状态:, 0:停用, 1:正常, 2:密码错误而锁定, 3:管理员强制锁定-->
+                <if test=" status !=  null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <!--用户名-->
+                <if test=" userName !=  null and ''!=  userName">
+                    user_name = #{userName,jdbcType=VARCHAR},
+                </if>
+
+                <!--用户描述-->
+                <if test=" remark !=  null and ''!=  remark">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </set>
+        <where>
+            and oid = #{oid,jdbcType=VARCHAR}
+        </where>
+    </update>
+
+    <!--用户信息表(pap_userinfo)删除操作-->
+    <delete id="delete" parameterType="com.liujun.microservice.data.entity.DataUserInfoPO">
+        delete from pap_userinfo
+        <where>
+            and oid = #{oid,jdbcType=VARCHAR}
+        </where>
+    </delete>
+
+
+
+    <!--用户信息表(pap_userinfo)查询操作-->
+    <select id="queryPage"
+            parameterType="com.liujun.microservice.data.entity.DataUserInfoPO"
+            resultMap="papUserinfoResultMap">
+        select
+        user_mobile,
+        user_email,
+        status,
+        create_time,
+        oid,
+        user_name,
+        remark
+        from
+        pap_userinfo
+        <where>
+            <!--用户的id-->
+            <if test=" oid !=  null and ''!=  oid">
+                and oid =#{oid,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--用户信息表(pap_userinfo)根据id查询操作-->
+    <select id="queryById"
+            parameterType="com.liujun.microservice.data.entity.DataUserInfoPO"
+            resultMap="papUserinfoResultMap">
+        select
+        user_mobile,
+        user_email,
+        status,
+        create_time,
+        oid,
+        user_name,
+        remark
+        from
+        pap_userinfo
+        <where>
+            and oid = #{oid,jdbcType=VARCHAR}
+        </where>
+    </select>
+
+
+</mapper>
