@@ -1,14 +1,10 @@
 package io.spring2go.zuul.hystrix;
 
-import brave.Span;
-import brave.propagation.TraceContext;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
-import io.spring2go.spring.TraceContextData;
 import io.spring2go.spring.TractCfg;
-import io.spring2go.zuul.common.Constants;
 import io.spring2go.zuul.context.RequestContext;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,6 +14,7 @@ import org.apache.http.protocol.HttpContext;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
+/** 实现hytrix的熔点与限流的接口 */
 public class ZuulRequestCommandForSemaphoreIsolation extends HystrixCommand<HttpResponse> {
 
   HttpClient httpclient;
@@ -42,12 +39,17 @@ public class ZuulRequestCommandForSemaphoreIsolation extends HystrixCommand<Http
       HttpContext httpContext,
       String commandGroup,
       String commandKey) {
+    // 封装到hystrix进行熔点限流操作
     super(
+        // 指定commandgroup的key
         Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey(commandGroup))
+            // 指定command的key
             .andCommandKey(HystrixCommandKey.Factory.asKey(commandKey))
+            // 指定默认值
             .andCommandPropertiesDefaults(
                 // we want to default to semaphore-isolation since this wraps
                 // 2 others commands that are already thread isolated
+                // 设置当前的模式为信号量模式
                 HystrixCommandProperties.Setter()
                     .withExecutionIsolationStrategy(
                         HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)));

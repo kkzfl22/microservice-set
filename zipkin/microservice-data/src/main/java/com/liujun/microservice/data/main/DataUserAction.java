@@ -91,8 +91,7 @@ public class DataUserAction {
   @RequestMapping(value = "/queryPage.action", method = RequestMethod.POST)
   public ApiResponse quereyPage(@RequestBody DataUserInfoPO userDto, HttpServletRequest request) {
 
-    //    // 进行分页准备
-    //    Page<PageInfo> pageInfo = PageHelper.startPage(userDto.getPage(), userDto.getPageSize());
+    // 进行分页准备,分页插件使用threadlocal对象，对调用链监控对象造成了影响
     // 进行数据的更新操作
     List<DataUserInfoPO> pageData = userApplicationService.queryPage(userDto);
 
