@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: eureka-server
+
+---
+spring:
+  profiles: eureka-instance1
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: eurekainstance1
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      default-zone: http://eurekainstance2:8762/eureka
+
+
+---
+spring:
+  profiles: eureka-instance2
+server:
+  port: 8762
+eureka:
+  instance:
+    hostname: eurekainstance2
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      default-zone: http://eurekainstance1:8761/eureka
+

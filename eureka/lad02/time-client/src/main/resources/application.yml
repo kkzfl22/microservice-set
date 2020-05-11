@@ -1,0 +1,14 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: time-client
+
+eureka:
+  client:
+    service-url:
+      #配制eureka的服务端的地址
+      defaultZone: http://eurekainstance1:8761/eureka,http://eurekainstance2:8762/eureka
+      #无需注册到eureka的服务器中
+    register-with-eureka: false
