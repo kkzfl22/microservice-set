@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: data-server
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eurekaserver2:9992/eureka,http://eurekaserver1:8761/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+
+
+---
+spring:
+  profiles: cluster1
+server:
+  port: 7771
+
+---
+spring:
+  profile: cluster2
+server:
+  port: 7772
