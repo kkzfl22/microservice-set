@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eurekaserver2:9992/eureka,http://eurekaserver1:8761/eureka
+      defaultZone: http://eurekaserver2:8874/eureka,http://eurekaserver1:9992/eureka
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 

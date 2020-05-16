@@ -64,32 +64,18 @@ public class TestRibbonRouting extends ZuulFilter {
   @Override
   public Object run() throws ZuulException {
     RequestContext ctx = RequestContext.getCurrentContext();
-    String path = ctx.getRequest().getRequestURI();
-    String requestPath = "";
-    String serviceName = "";
-    String requestMethod = "";
-    int index = path.lastIndexOf("/ribbon/");
-    if (index > 0) {
-      requestPath = path.substring(index + 8);
-      if (StringUtils.isNotEmpty(requestPath)) {
-        int index2 = requestPath.indexOf("/");
-        if (index2 > 0) {
-          serviceName = requestPath.substring(0, index2);
-          requestMethod = requestPath.substring(index2 + 1);
-        } else {
-          serviceName = requestPath;
-        }
-      }
-    }
-    if (StringUtils.isNotEmpty(serviceName)) {
-      String urlString = serviceName;
 
-      DiscoveryEnabledServer server = this.getRibbon(urlString);
+    URL routeUrl = ctx.getRouteUrl();
+    String routeHost = routeUrl.getHost();
+
+    if (StringUtils.isNotEmpty(routeHost)) {
+
+      DiscoveryEnabledServer server = this.getRibbon(routeHost);
 
       URL url;
       try {
         String targetUrl =
-            "http://" + server.getHost() + ":" + server.getPort() + "/" + requestMethod;
+            "http://" + server.getHost() + ":" + server.getPort() + routeUrl.getPath();
         url = new URL(targetUrl);
         ctx.setRouteUrl(url);
       } catch (MalformedURLException e) {
@@ -111,6 +97,6 @@ public class TestRibbonRouting extends ZuulFilter {
 
   @Override
   public int filterOrder() {
-    return 19;
+    return 21;
   }
 }
