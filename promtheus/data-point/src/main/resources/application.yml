@@ -1,0 +1,21 @@
+management:
+  security:
+    enabled: false
+
+opts:
+  endpoints: /login, /login, /login, /login, /login, /login, /login, /users, /users, /users, /users/{id}, /register, /register, /logout, /logout, /logout, /logout
+  request_rate: 1000
+  request_rate_uncertainty: 70
+  #随机产生延迟的相关参数配制
+  latency_min: 10
+  latency_p50: 25
+  latency_p90: 150
+  latency_p99: 750
+  latency_max: 1000
+  latency_uncertainty: 80
+  #错误相关的参数配制
+  error_rate: 1
+  spike_start_chance: 5
+  spike_end_chance: 30
+
+

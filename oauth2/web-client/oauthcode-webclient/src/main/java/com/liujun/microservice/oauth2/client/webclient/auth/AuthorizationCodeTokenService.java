@@ -22,7 +22,7 @@ public class AuthorizationCodeTokenService {
 
     Map<String, String> authParameter = new HashMap<>();
     authParameter.put("client_id", "liujunapp");
-    authParameter.put("response_type", "code");
+    authParameter.put("grant_type", "code");
     authParameter.put("redirect_uri", "http://localhost:9002/callback");
     authParameter.put("scope", getEncodedUrl("read"));
 
