@@ -1,0 +1,6 @@
+server:
+  port: 8021
+  servlet:
+    context-path: /user-biz
+
+
